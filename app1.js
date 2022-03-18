@@ -177,7 +177,7 @@ function ShowFmlImg(image) {
     `
   body {
 
-      background-image: url("${image}")
+      background-image: url("${image}");
      
       background-size: cover;
   }
