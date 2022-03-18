@@ -1,0 +1,213 @@
+<html>
+
+<head>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <style>
+        div>p {
+            height: 10;
+            /* background-color: blue; */
+        }
+
+        .container {
+            width: 100%;
+            color: antiquewhite;
+
+        }
+
+        #idTache {
+            display: none;
+        }
+
+        body {
+            background-image: url("totoro_et.jpg");
+            background-size: cover;  
+            background-size: 95%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root">
+
+    </div>
+
+
+
+    <script type="text/babel">
+
+        function Task(props) {
+            console.log("props : ", props)
+            return (
+                <div class="row">
+                    <div id="idTache" class="col-1 col-md-1 col-lg-1">
+                        <input type="text" id="idTache" name="idTache" value={props.id} hidden />
+                    </div>
+                    <div class="col-1 col-md-1 col-lg-1 border border-info">
+                        <p> {props.ind_priorite}</p>
+                    </div>
+                    <div class="col-1 col-md-1 col-lg-1 border border-info">
+                        <p> {props.type_task}</p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 border border-info">
+                        <p>{props.nom}</p>
+                    </div>
+                    <div class="col-3 col-md-3 col-lg-3 border border-info">
+                        <p> {props.description}</p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 border border-info">
+                        <p> {props.resp_task}</p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 border border-info">
+                        <p> {props.dt_echeance}</p>
+                    </div>
+                    <div class="col-1 col-md-1 col-lg-1 border border-info">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name={props.id} value='off' />
+                            <label class="form-check-label" for="flexSwitchCheckDefault">fait</label>
+
+                        </div>
+                    </div>
+
+                </div>
+            )
+        }
+
+        function Page(props) {
+            console.log("props page: ", props)
+
+            let taskComponents = props.tasks.map(t => {
+
+                return (
+                    <Task id={t.id} ind_priorite={t.ind_priorite} type_task={t.type_task} nom={t.nom} description={t.description} resp_task={t.resp_task} dt_echeance={t.dt_echeance} />
+                )
+            })
+
+            return (
+                <div class="container">
+                    <div class="row">
+                        <div class="h2 col-12 col-md-12 col-lg-12 text-center ">
+                            To-Do-List :
+                        </div>
+                        <form method="GET">
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-6 text-center">
+                                    <button type="submit" formaction="http://localhost:3000/Formulaire_taches" method="GET"
+                                        class="btn btn-primary btn-rounded">Formulaire</button>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-6 text-center">
+                                    <button type="submit" formaction="http://localhost:3000/accueil" method="GET"
+                                        class="btn btn-primary btn-rounded">Accueil</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 col-md-1 col-lg-1 border border-info">
+                            <h4>Priorité</h4>
+                        </div>
+                        <div class="col-1 col-md-1 col-lg-1 border border-info">
+                            <h4>Type</h4>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 border border-info">
+                            <h4>Taches</h4>
+                        </div>
+                        <div class="col-3 col-md-3 col-lg-3 border border-info">
+                            <h4>Description</h4>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 border border-info">
+                            <h4>Acteur</h4>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 border border-info">
+                            <h4>Date d'échéance</h4>
+                        </div>
+                        <div class="col-1 col-md-1 col-lg-1 border border-info">
+                            <h4>Terminé</h4>
+                        </div>
+                        <form id="formulaire" action="http://localhost:3000/TodoList_react" method="POST">
+                            {taskComponents}
+                            <div class="row">
+                                <div class="col-12 col-md-12 col-lg-12 text-center">
+                                    <input id="boutonS" class="btn btn-primary btn-rounded" type="submit" value ="Valider" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div >
+            )
+        }
+
+        // récupération des données de la page ToDoList
+        // function Titre() {
+        //     return <h1> bonjour</h1>
+        // }
+
+        // let taskData = [
+        //     { nom: "Dormir", description: "debout" },
+        //     { nom: "Manger", description: "assis" }
+        // ]
+
+
+        const domContainer = document.getElementById('root');
+
+        ReactDOM.render(
+            <Page tasks={taskData} />,
+            domContainer
+        );
+
+        fetch('/get-data')
+            .then(function (response) {
+
+                return response.json()
+
+            })
+            .then(function (tasks) {
+
+                ReactDOM.render(
+                    <Page tasks={tasks} />,
+                    domContainer
+                );
+            })
+        //Post
+
+        let formulaire = document.getElementById("formulaire")
+
+        console.log("formulaire.value: ", formulaire.value)
+
+        formulaire.addEventListener("submit", (event) => {
+
+            let data = new FormData(formulaire)
+            let config = {
+                method: "POST",
+                body: new URLSearchParams(data)
+            }
+
+
+            fetch("/get-task", config)
+                .then(response => {
+
+                return response.text()
+            })
+                .then(text => {
+
+            })
+
+
+        })
+
+    </script>
+
+</body>
+
+</html>
