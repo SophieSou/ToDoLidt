@@ -31,7 +31,7 @@
 
         body {
             background-image: url("totoro_et.jpg");
-            background-size: cover;  
+            background-size: cover;
             background-size: 95%;
         }
     </style>
@@ -102,13 +102,17 @@
                         </div>
                         <form method="GET">
                             <div class="row">
-                                <div class="col-6 col-md-6 col-lg-6 text-center">
+                                <div class="col-4 col-md-4 col-lg-4 text-center">
                                     <button type="submit" formaction="http://localhost:3000/Formulaire_taches" method="GET"
                                         class="btn btn-primary btn-rounded">Formulaire</button>
                                 </div>
-                                <div class="col-6 col-md-6 col-lg-6 text-center">
+                                <div class="col-4 col-md-4 col-lg-4 text-center">
                                     <button type="submit" formaction="http://localhost:3000/accueil" method="GET"
                                         class="btn btn-primary btn-rounded">Accueil</button>
+                                </div>
+                                <div class="col-4 col-md-4 col-lg-4 text-center">
+                                    <button type="submit" formaction="http://localhost:3000/" method="GET"
+                                        class="btn  btn-info btn-rounded">Sortir</button>
                                 </div>
                             </div>
                         </form>
@@ -139,7 +143,7 @@
                             {taskComponents}
                             <div class="row">
                                 <div class="col-12 col-md-12 col-lg-12 text-center">
-                                    <input id="boutonS" class="btn btn-primary btn-rounded" type="submit" value ="Valider" />
+                                    <input id="boutonS" class="btn btn-primary btn-rounded" type="submit" value="Valider" />
                                 </div>
                             </div>
                         </form>
@@ -149,22 +153,9 @@
         }
 
         // récupération des données de la page ToDoList
-        // function Titre() {
-        //     return <h1> bonjour</h1>
-        // }
-
-        // let taskData = [
-        //     { nom: "Dormir", description: "debout" },
-        //     { nom: "Manger", description: "assis" }
-        // ]
-
 
         const domContainer = document.getElementById('root');
 
-        ReactDOM.render(
-            <Page tasks={taskData} />,
-            domContainer
-        );
 
         fetch('/get-data')
             .then(function (response) {
@@ -172,10 +163,10 @@
                 return response.json()
 
             })
-            .then(function (tasks) {
+            .then(function (taskData) {
 
                 ReactDOM.render(
-                    <Page tasks={tasks} />,
+                    <Page tasks={taskData} />,
                     domContainer
                 );
             })
@@ -197,11 +188,11 @@
             fetch("/get-task", config)
                 .then(response => {
 
-                return response.text()
-            })
+                    return response.text()
+                })
                 .then(text => {
 
-            })
+                })
 
 
         })
